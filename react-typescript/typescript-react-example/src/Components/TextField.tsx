@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
+
 
 interface Person {
     firstName: string;
@@ -11,28 +12,30 @@ interface Person {
 // Props option 2: 
 interface Props {
     text: string;
-    ok?: boolean;
+    bool?: boolean;
     int?: number;
-    functionNoReturn?: (parameter: boolean) => void;
-    functionReturn?: (parameter1: string) => string;
-    object?: {
-        f1: string
-    }
-    object2?: Person; //See above interface
+    fn?: (name: string) => string;
+    //fnNoReturn?: (num: number) => void;
+    person: Person;
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    //Can also do an object
+}
 
-
+interface TextNode {
+    text: string
 }
 
 //Then plug the props in like this
-export const TextField: React.FC<Props> = ({text}) => {
-    const [count, setCount] = useState<number | null>(5); //automatically infers, 5 is the type: number
+export const TextField: React.FC<Props> = ({ handleChange }) => {
+    const [count, setCount] = useState<TextNode>({ text: "hello" });
+    const inputRef = useRef<HTMLInputElement>(null);
+    const divRef = useRef<HTMLDivElement>(null); //I found this type by hovering over the ref below
     
-    setCount(null)
+    ///setCount(null)
     
-    return(
-        <div>
-            <input />
-            <h1> Test</h1>
+    return (
+        <div ref={divRef}>
+          <input ref={inputRef} onChange={handleChange} />
         </div>
     );
 };

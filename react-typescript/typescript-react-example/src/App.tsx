@@ -1,18 +1,24 @@
 import React from 'react';
 import './App.css';
-import { TextField } from './Components/TextField'
+import { Counter } from './Components/Counter';
+import { TextField } from './Components/TextField';
 
-function App() {
+// props
+// hooks
+// render props
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Yo!
-        </p>
-        <TextField text="Hello world." />
-      </header>
+    <div>
+        <Counter>
+          {({ count, setCount }) => (
+          <div>
+            {count}
+            <button onClick={() => setCount(count + 1)}> + </button>
+          </div>)}
+        </Counter>
     </div>
   );
-}
+};
 
 export default App;
